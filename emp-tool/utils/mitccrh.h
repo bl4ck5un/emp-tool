@@ -8,8 +8,8 @@
  */
 namespace emp {
 
-class MITCCRH{ public:
-
+class MITCCRH{
+public:
 	ROUND_KEYS key_schedule[KS_BATCH_N];
 	int key_used = KS_BATCH_N;
 	block start_point;
@@ -49,12 +49,12 @@ class MITCCRH{ public:
 		H[1] = xorBlocks(keys[1], masks[1]);
 	}
 
-	void k2_h4(block A0, block A1, block B0, block B1, block *H) {
+	void k2_h4(block block_a0, block block_a1, block block_b0, block block_b1, block *H) {
 		block keys[4], masks[4];
-		keys[0] = sigma(A0);
-		keys[1] = sigma(A1);
-		keys[2] = sigma(B0);
-		keys[3] = sigma(B1);
+		keys[0] = sigma(block_a0);
+		keys[1] = sigma(block_a1);
+		keys[2] = sigma(block_b0);
+		keys[3] = sigma(block_b1);
 		memcpy(masks, keys, sizeof keys);
 
 		AES_ecb_ccr_ks2_enc4(keys, keys, &key_schedule[key_used]);
